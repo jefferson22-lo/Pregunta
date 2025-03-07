@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Dormimos juntitos?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 50%; /* Hace los botones circulares */
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 60px;
+            height: 60px;
+        }
+
+        #si {
+            background-color: green;
+            color: white;
+        }
+
+        #no {
+            background-color: red;
+            color: white;
+        }
+
+        #si:hover, #no:hover {
+            transform: scale(1.2);
+        }
+
+        #mensaje {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+
+        #imagenSi {
+            display: none;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+            border-radius: 10px;
+            animation: aparecer 0.5s ease-in-out;
+        }
+
+        #imagenNo {
+            display: none;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, opacity 0.5s ease;
+        }
+
+        /* Animaciones */
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="titulo">¿Quieres que durmamos juntitos si es que voy? 💖🥰</h1>
+
+    <div class="buttons">
+        <button id="si" onclick="mostrarMensaje()">Sí</button>
+        <button id="no" onclick="cambiarImagen()">No</button>
+    </div>
+
+    <div id="mensaje">
+        <p>Sabía que dirías que sí 💖🥰</p>
+        <img id="imagenSi" src="https://i.postimg.cc/5tqpYFy3/IMG-20250307-WA0006.jpg">
+    </div>
+
+    <img id="imagenNo" src="URL_IMAGEN_NO_1">
+
+    <script>
+        let contadorNo = 0;
+        let tamañoImagen = 300; // Tamaño inicial de la imagen
+        let tamañoSi = 60; // Tamaño inicial del botón "Sí"
+        const imagenesNo = [
+            "https://i.postimg.cc/RVkTgTnd/IMG-20250307-WA0015.jpg",
+            "https://i.postimg.cc/vHZRQbPk/IMG-20250307-WA0007.jpg",
+            "https://i.postimg.cc/yN9tfddg/IMG-20250307-WA0011.jpg",
+            "https://i.postimg.cc/kX4H0wGd/IMG-20250307-WA0012.jpg",
+            "https://i.postimg.cc/Y9RXVmw9/IMG-20250307-WA0003.jpg"
+        ];
+
+        function mostrarMensaje() {
+            document.getElementById("mensaje").style.display = "block";
+            document.getElementById("imagenSi").style.display = "block";
+            document.getElementById("imagenNo").style.display = "none"; // Oculta la imagen del "No"
+        }
+
+        function cambiarImagen() {
+            if (contadorNo < imagenesNo.length) {
+                let imgNo = document.getElementById("imagenNo");
+                imgNo.src = imagenesNo[contadorNo];
+                imgNo.style.display = "block";
+
+                let botonNo = document.getElementById("no");
+                let botonSi = document.getElementById("si");
+
+                // Reducir el tamaño de la imagen y el botón "No"
+                tamañoImagen *= 0.8; 
+                imgNo.style.maxWidth = tamañoImagen + "px";
+                botonNo.style.transform = `scale(${Math.max(0.5, 1 - contadorNo * 0.1)})`;
+
+                // Aumentar el tamaño del botón "Sí"
+                tamañoSi *= 1.2;
+                botonSi.style.width = tamañoSi + "px";
+                botonSi.style.height = tamañoSi + "px";
+
+                contadorNo++;
+            }
+        }
+    </script>
+
+</body>
+</html>
